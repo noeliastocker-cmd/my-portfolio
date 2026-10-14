@@ -1,0 +1,289 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Noelia Stocker Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column with a status-log motif. Deliberately single dark theme, matching the Framer site: warm near-black ground, signal-yellow accent. */
+:root{
+  --bg:#111110; --surface:#1A1A19; --ink:#F0EDE8; --body:#C8C4BE; --muted:#8A8782; --line:#2C2B29;
+  --accent:#E8C800; --accent-soft:#2E2A0B; --signal:#F2A93B; --signal-soft:#33240D; --ok:#7FD39A; --ok-soft:#14281B;
+  --code-bg:#0A0A09; --code-fg:#D9D5CE; --code-kw:#E8C800; --code-str:#9DC7FF;
+  --f-display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Inter",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+p,dd,li{color:var(--body)}
+strong,.result{color:var(--ink)}
+.stat b{color:var(--accent)}
+.mini{border-top-color:var(--accent)!important}
+::selection{background:var(--accent);color:#111110}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:860px;margin:0 auto;padding-block:56px 72px;display:flex;flex-direction:column;gap:72px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(2.4rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.65rem;font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0;max-width:65ch}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:1.15rem;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:20px}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:18px}
+.role{font-family:var(--f-mono);font-size:.9rem;color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:4px 0 0;list-style:none}
+.tags li{font-family:var(--f-mono);font-size:.78rem;border:1px solid var(--line);border-radius:4px;padding:3px 9px;color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.stat{background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat b{font-family:var(--f-display);font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat span{font-size:.9rem;color:var(--muted);line-height:1.4}
+
+/* method */
+.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:flex;flex-direction:column;gap:14px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.4rem 1fr;gap:12px;align-items:baseline}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-mono);color:var(--accent);font-size:.9rem}
+.steps li div{min-width:0}
+
+/* log entries */
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:16px}
+.entry-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.chip{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border-radius:3px;padding:3px 8px}
+.chip.live{background:var(--ok-soft);color:var(--ok)}
+.chip.new{background:var(--signal-soft);color:var(--signal)}
+.chip.done{background:var(--accent-soft);color:var(--accent)}
+.when{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.rows{display:grid;grid-template-columns:7.5rem 1fr;gap:10px 18px;margin:0}
+.rows dt{font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+.rows dd{margin:0;min-width:0}
+.rows ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.result{font-weight:600}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--f-mono);font-size:.78rem;margin:0;padding:0;list-style:none}
+.flow li{border:1px solid var(--line);border-radius:4px;padding:4px 9px;background:var(--bg)}
+.flow li.arrow{border:0;background:none;padding:0;color:var(--muted)}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.mini{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.mini p{color:var(--muted);font-size:.95rem}
+
+/* code */
+.code{background:var(--code-bg);color:var(--code-fg);border-radius:6px;overflow-x:auto;font-family:var(--f-mono);font-size:.8rem;line-height:1.55;padding:20px;margin:0}
+.code .k{color:var(--code-kw)} .code .s{color:var(--code-str)} .code .c{color:#7C8796}
+.note{font-size:.85rem;color:var(--muted)}
+
+.toolkit{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.toolkit div{min-width:0} .toolkit h3{font-size:1rem;margin-bottom:6px}
+.toolkit p{font-size:.92rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--muted)}
+
+@media (max-width:560px){
+  .entry{padding:20px}
+  .rows{grid-template-columns:1fr;gap:4px}
+  .rows dd{margin-bottom:10px}
+}
+</style>
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">Portfolio · Berlin</span>
+  <h1>Noelia Stocker</h1>
+  <p class="role">Operations · Automation · Data</p>
+  <p class="lede">I find operational bottlenecks, measure them with data, and remove them through process redesign, automation and product improvements. Everything below was built at iMusician Digital AG over seven years, where I grew from QA Specialist to Senior Team Lead, Product Operations.</p>
+  <ul class="tags">
+    <li>SQL</li><li>BigQuery</li><li>Google Apps Script</li><li>REST APIs</li><li>AI workflows</li><li>Process optimization</li><li>Trust &amp; Safety</li><li>Cross-functional delivery</li>
+  </ul>
+</header>
+
+<section aria-labelledby="impact">
+  <span class="eyebrow">Impact at a glance</span>
+  <h2 id="impact" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Impact at a glance</h2>
+  <div class="stats">
+    <div class="stat"><b>2×</b><span>Monthly output with half the team (3,500 → 7,500 releases, 2022–2026)</span></div>
+    <div class="stat"><b>€283K</b><span>Revenue recovered through YouTube Content ID</span></div>
+    <div class="stat"><b>1,000+</b><span>Failed deliveries rescued; 5–10 more caught every week</span></div>
+    <div class="stat"><b>2,690</b><span>Releases delivered in one month through SQL bulk delivery</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="method">
+  <span class="eyebrow">How I work</span>
+  <h2 id="method">The same five steps, every time</h2>
+  <ol class="steps">
+    <li><div><strong>Measure the problem.</strong> Use SQL and KPIs to size it: volume, frequency, time cost, downstream impact.</div></li>
+    <li><div><strong>Find the most repeated task.</strong> Work done often, on a predictable trigger, gives the highest return.</div></li>
+    <li><div><strong>Learn what the systems can do.</strong> Read API docs, export schemas and field definitions, and compare them with what the team does by hand.</div></li>
+    <li><div><strong>Pick the right fix.</strong> Process redesign, automation, validation upstream, or bulk processing. Usually a mix.</div></li>
+    <li><div><strong>Ship, measure, document.</strong> Track before and after with the same KPIs, and write it down so the team can run it without me.</div></li>
+  </ol>
+</section>
+
+<section aria-labelledby="work">
+  <span class="eyebrow">Selected work</span>
+  <h2 id="work">Projects</h2>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip new">New · Live</span><span class="when">2026</span></div>
+    <h3>AI triage for support tickets that need QA</h3>
+    <dl class="rows">
+      <dt>Problem</dt><dd>Another team asked whether QA could stay online later to cover urgent requests. With limited QA capacity, the real issue was that tickets needing QA were buried among dozens of others and reached us late in the day.</dd>
+      <dt>What I built</dt><dd>
+        <ul>
+          <li>A script reads every unassigned conversation in the English support inbox.</li>
+          <li>A first AI agent summarises each conversation, suggests a next action and decides whether it needs QA &amp; Delivery (delivery issues, near-late releases, release changes), with a reason.</li>
+          <li>A second AI agent (Claude) reviews that output against the same thread and corrects the verdict when needed.</li>
+          <li>Every ticket that needs QA triggers a Slack notification in a channel the team checks first thing in the morning.</li>
+        </ul>
+      </dd>
+      <dt>Flow</dt><dd><ul class="flow"><li>Inbox</li><li class="arrow">→</li><li>Summary + verdict</li><li class="arrow">→</li><li>Second-agent review</li><li class="arrow">→</li><li>Slack alert</li></ul></dd>
+      <dt>Safeguard</dt><dd>Read-only. Nothing is drafted or sent to customers; the system only sorts, and a person handles every ticket.</dd>
+      <dt>Result</dt><dd class="result">Urgent QA requests are handled at the start of the day instead of the end, without extending anyone's hours.</dd>
+    </dl>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip live">Live</span><span class="when">Monitoring since launch</span></div>
+    <h3>Failed-delivery monitoring</h3>
+    <dl class="rows">
+      <dt>Problem</dt><dd>Customer Support kept escalating releases that missed their release date. In music distribution, a late release is one of the worst outcomes for an artist.</dd>
+      <dt>What I did</dt><dd>
+        <ul>
+          <li>Used SQL to find the pattern: a wave of deliveries stuck in failed statuses after a system bug.</li>
+          <li>Handled the complaining customers first, then pulled every other affected release from the data and sent the IDs to Tech to re-trigger.</li>
+          <li>Built a scheduled report that scans all deliveries daily for failed statuses and posts them to a monitored Slack channel.</li>
+          <li>Logged recurring failure types so Tech could fix root causes.</li>
+        </ul>
+      </dd>
+      <dt>Result</dt><dd class="result">Over 1,000 assets rescued in the first clean-up. Today the monitor catches 5–10 failed deliveries every week, before customers notice.</dd>
+    </dl>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip done">Delivered</span><span class="when">2022–2026</span></div>
+    <h3>Double the output with half the team</h3>
+    <dl class="rows">
+      <dt>Measure</dt><dd>Releases processed per month, and checks per agent per day.</dd>
+      <dt>What drove it</dt><dd>
+        <ul>
+          <li><strong>Faster checks.</strong> Reading our API and export documentation, I found automations that cut the time per manual check in half.</li>
+          <li><strong>Fewer checks.</strong> A SQL query identifies clean, low-risk releases (no fingerprint conflicts, complete metadata, no compliance flags) for bulk delivery. Up to 2,690 releases in a single month.</li>
+          <li><strong>Less rework.</strong> Worked with Product and Engineering on upload-form validation, so incomplete metadata is caught before it enters the pipeline.</li>
+          <li><strong>No manual status checks.</strong> API integrations pull delivery statuses from platforms automatically.</li>
+        </ul>
+      </dd>
+      <dt>Result</dt><dd class="result">Monthly output grew from 3,500 to 7,500 releases while the team halved through natural attrition. No replacements were needed.</dd>
+    </dl>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip live">Live</span><span class="when">April 2025 – today</span></div>
+    <h3>YouTube Content ID revenue recovery</h3>
+    <dl class="rows">
+      <dt>Problem</dt><dd>A large catalog of eligible tracks had never been delivered to YouTube Content ID, so it earned nothing there.</dd>
+      <dt>What I did</dt><dd>
+        <ul>
+          <li>Audited the catalog with SQL and set prioritisation rules.</li>
+          <li>Coordinated delivery and labelled the assets so the initiative's revenue could be tracked on its own.</li>
+          <li>Proposed a prompt in the upload form so customers opt in at the moment of upload, linked to automatic CRM campaigns.</li>
+        </ul>
+      </dd>
+      <dt>Result</dt><dd class="result">About €283,000 in recovered revenue by August 2026, plus about €5,000 in extra order revenue from the upload prompt.</dd>
+    </dl>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip done">Built from zero</span></div>
+    <h3>Trust &amp; Safety, and the AI-spam wave</h3>
+    <dl class="rows">
+      <dt>Context</dt><dd>I built iMusician's Trust &amp; Safety function: scope, processes, tooling and escalation paths, with SQL monitoring of payment and behaviour signals to flag risky accounts.</dd>
+      <dt>The test</dt><dd>A wave of accounts uploaded mass AI-generated content for artificial streaming, filling the queues and delaying real artists' releases.</dd>
+      <dt>What I did</dt><dd>
+        <ul>
+          <li>Built a report to identify the accounts, with strict criteria to avoid false positives.</li>
+          <li>Set up a two-step automated flow: a warning first, and termination only if the behaviour continued.</li>
+          <li>Started with small batches and improved the wording based on replies before scaling up.</li>
+        </ul>
+      </dd>
+      <dt>Result</dt><dd class="result">100 accounts handled in one week, queues back to normal, and only 4 negative reviews.</dd>
+    </dl>
+  </article>
+
+  <div class="grid2">
+    <div class="mini"><h3>Editorial Playlist Pitching</h3><p>Co-led the launch of a product that lets artists pitch to editorial playlist curators. Defined the operational requirements and workflows. It became a top-selling product.</p></div>
+    <div class="mini"><h3>Reporting from zero</h3><p>Taught myself SQL and built the team's KPI dashboards for throughput, QA compliance and business impact, giving leadership real-time visibility.</p></div>
+    <div class="mini"><h3>Customer communication</h3><p>Worked with the CRM team on campaign logic and segmentation, so customers get the right message at the right stage and avoidable tickets never happen.</p></div>
+    <div class="mini"><h3>Automation, step by step</h3><p>Started with Zapier for quick wins, then moved to Google Apps Script for conditional, scheduled, multi-step workflows: daily digests, weekly KPI reports, Slack alerts.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="code">
+  <span class="eyebrow">Real code, anonymised</span>
+  <h2 id="code">How the bulk-delivery query decides</h2>
+  <p>A release goes out without a manual check only if every condition holds: the customer isn't flagged, the version name is clean, the audio fingerprint shows no conflict, and Content ID isn't involved.</p>
+<pre class="code"><code><span class="k">WITH</span> bundles_ready <span class="k">AS</span> (
+  <span class="k">SELECT DISTINCT</span> b.id <span class="k">AS</span> bundle_id, b.customer_id
+  <span class="k">FROM</span> delivery_bundles b
+  <span class="k">LEFT JOIN</span> releases r  <span class="k">ON</span> b.id = r.delivery_bundle_id
+  <span class="k">LEFT JOIN</span> customers c <span class="k">ON</span> c.id = b.customer_id
+  <span class="k">WHERE</span> b.status = <span class="s">'ready'</span>
+    <span class="k">AND</span> c.trust_level <span class="k">NOT IN</span> (<span class="s">'fraudulent'</span>, <span class="s">'suspicious'</span>)
+    <span class="k">AND</span> b.is_deleted = <span class="k">FALSE</span>
+    <span class="k">AND NOT EXISTS</span> (
+      <span class="k">SELECT</span> 1 <span class="k">FROM</span> release_names rn
+      <span class="k">WHERE</span> rn.release_id = r.id
+        <span class="k">AND</span> <span class="k">COALESCE</span>(rn.version, <span class="s">''</span>) ~ <span class="s">'\([^)]*\)'</span>)
+),
+track_analysis <span class="k">AS</span> (
+  <span class="k">SELECT</span> b.bundle_id,
+         <span class="k">SUM</span>(<span class="k">COALESCE</span>(f.score, 0))           <span class="k">AS</span> fingerprint_score,
+         <span class="k">ARRAY_AGG</span>(<span class="k">DISTINCT</span> t.content_id_status) <span class="k">AS</span> content_id
+  <span class="k">FROM</span> bundles_ready b
+  <span class="k">LEFT JOIN</span> tracks t             <span class="k">ON</span> b.bundle_id = t.bundle_id
+  <span class="k">LEFT JOIN</span> audio_fingerprints f <span class="k">ON</span> t.id = f.track_id
+  <span class="k">GROUP BY</span> b.bundle_id
+)
+<span class="k">SELECT</span> b.bundle_id, b.customer_id
+<span class="k">FROM</span> bundles_ready b
+<span class="k">JOIN</span> track_analysis t <span class="k">ON</span> b.bundle_id = t.bundle_id
+<span class="k">WHERE</span> t.fingerprint_score &lt; 0
+  <span class="k">AND</span> t.content_id = <span class="s">'{false}'</span>;</code></pre>
+  <p class="note">Table and field names are generalised. The logic matches the production query.</p>
+</section>
+
+<section aria-labelledby="tools">
+  <span class="eyebrow">Toolkit</span>
+  <h2 id="tools">What I work with</h2>
+  <div class="toolkit">
+    <div><h3>Data</h3><p>SQL on production databases, BigQuery (joined with support-tool data), PostHog, Looker Studio, KPI dashboards</p></div>
+    <div><h3>Automation</h3><p>Google Apps Script (JavaScript), Python, Zapier, scheduled triggers, Slack alerts</p></div>
+    <div><h3>Integrations &amp; AI</h3><p>REST APIs, Help Scout, CRM tools, multi-agent AI workflows with human review</p></div>
+    <div><h3>Certifications</h3><p>YouTube Music Rights Management (Google) · YouTube Music Certification (Google) · Complete SQL Bootcamp (Udemy, 2023) · Practical Leadership Skills (Udemy, 2023)</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>Noelia Stocker · Berlin</span>
+  <span>Spanish (native) · English (professional) · German (B2+)</span>
+</footer>
+
+</div>
+
+</body>
+</html>
+
+</body></html>
