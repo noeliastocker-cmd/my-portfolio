@@ -208,12 +208,12 @@ footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:
 
   <article class="entry">
     <div class="entry-head"><span class="chip done">Built from zero</span></div>
-    <h3>Trust &amp; Safety, and the AI-spam wave</h3>
+    <h3>Trust &amp; Safety: handling fraudulent customers</h3>
     <dl class="rows">
-      <dt>Context</dt><dd>I built iMusician's Trust &amp; Safety function from scratch and own the full lifecycle: prevention, detection, enforcement and what happens after a penalty.</dd>
+      <dt>Context</dt><dd>Streaming fraud was a growing problem: customers used bot farms to generate artificial streams on their releases, and streaming platforms sent us fraud reports and penalties. I built iMusician's Trust &amp; Safety function from scratch to handle it, owning the full lifecycle: prevention, detection, enforcement and what happens after a penalty.</dd>
       <dt>What I built</dt><dd>
         <ul>
-          <li><strong>Fraud reports.</strong> Processed the fraud reports sent by streaming platforms, investigated the flagged accounts and coordinated the follow-up on penalties.</li>
+          <li><strong>Fraud reports.</strong> Processed the streaming-fraud reports sent by the platforms, investigated the flagged accounts and coordinated the follow-up on penalties.</li>
           <li><strong>KYC.</strong> Implemented the KYC (identity verification) process for suspicious accounts.</li>
           <li><strong>Account statuses.</strong> Worked with Tech to add "fraudulent" and "suspicious" statuses to customer accounts, and designed automatic account restrictions for each status. The bulk-delivery query further down excludes these accounts.</li>
           <li><strong>CRM segmentation.</strong> Segmented these customers with the CRM team so they stop receiving promotional emails.</li>
@@ -221,7 +221,15 @@ footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:
           <li><strong>Team.</strong> Onboarded and trained two agents to run day-to-day execution, with documented processes.</li>
         </ul>
       </dd>
-      <dt>The test</dt><dd>A wave of accounts uploaded mass AI-generated content for artificial streaming, filling the queues and delaying real artists' releases.</dd>
+      <dt>Result</dt><dd class="result">A documented, repeatable process run day to day by two trained agents. Flagged accounts are restricted automatically and excluded from bulk delivery and promotional campaigns.</dd>
+    </dl>
+  </article>
+
+  <article class="entry">
+    <div class="entry-head"><span class="chip done">Delivered</span><span class="when">Recent</span></div>
+    <h3>Stopping the AI-spam wave</h3>
+    <dl class="rows">
+      <dt>Problem</dt><dd>A new kind of abuse: a wave of accounts uploaded mass AI-generated content, filling the review queues and delaying real artists' releases.</dd>
       <dt>What I did</dt><dd>
         <ul>
           <li>Built a report to identify the accounts, with strict criteria to avoid false positives.</li>
@@ -282,7 +290,7 @@ track_analysis <span class="k">AS</span> (
     <div><h3>Data</h3><p>SQL on production databases, BigQuery (joined with support-tool data), PostHog, Looker Studio, KPI dashboards</p></div>
     <div><h3>Automation</h3><p>Google Apps Script (JavaScript), Python, Zapier, scheduled triggers, Slack alerts</p></div>
     <div><h3>Integrations &amp; AI</h3><p>REST APIs, Help Scout, CRM tools, multi-agent AI workflows with human review</p></div>
-    <div><h3>Certifications</h3><p>YouTube Music Rights Management (Google) · YouTube Music Certification (Google) · Complete SQL Bootcamp (Udemy, 2023) · Practical Leadership Skills (Udemy, 2023)</p></div>
+    <div><h3>Certifications</h3><p>YouTube Music Rights Management (Google) · YouTube Music Certification (Google) · Complete SQL Bootcamp (Udemy, 2023) · Practical Leadership Skills (Udemy, 2023) · Automate the Boring Stuff with Python Programming (Udemy, 2025)</p></div>
   </div>
 </section>
 
